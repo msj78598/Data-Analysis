@@ -38,18 +38,4 @@ referencing==0.35.1
 requests==2.32.3
 rich==13.7.1
 rpds-py==0.19.1
-scikit-learn==1.5.1
-scipy==1.14.0
-six==1.16.0
-smmap==5.0.1
-streamlit==1.37.1
-tenacity==8.5.0
-threadpoolctl==3.5.0
-toml==0.10.2
-toolz==0.12.1
-tornado==6.4.1
-typing_extensions==4.12.2
-tzdata==2024.1
-urllib3==2.2.2
-watchdog==4.0.1
-xlsxwriter==3.1.2  # إضافة المكتبة لتصدير ملفات Excel
+scikit-learn==1
