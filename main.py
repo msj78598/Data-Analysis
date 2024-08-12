@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import classification_report, accuracy_score, mean_absolute_error, mean_squared_error, r2_score
 import streamlit as st
+from io import BytesIO
 
 # Function to load data
 @st.cache_data
@@ -93,11 +94,18 @@ if uploaded_file is not None:
     
     # Save the anomalies to a new Excel file
     anomalies = data[data['Anomaly'] == True]
-    anomalies_file_path = 'anomalies.xlsx'
-    anomalies.to_excel(anomalies_file_path, index=False)
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        anomalies.to_excel(writer, index=False, sheet_name='Anomalies')
+        writer.save()
+        processed_data = output.getvalue()
+    
     st.subheader('Anomalies Detected')
     st.write(anomalies)
-    st.markdown(f"[Download Anomalies Excel File](anomalies.xlsx)")
+    st.download_button(label="Download Anomalies Excel File",
+                       data=processed_data,
+                       file_name='anomalies.xlsx',
+                       mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
     # Plot regression results
     st.subheader('Regression Results')
