@@ -97,8 +97,8 @@ if uploaded_file is not None:
     output = BytesIO()
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
         anomalies.to_excel(writer, index=False, sheet_name='Anomalies')
-        writer.save()
-        processed_data = output.getvalue()
+        # No need to call writer.save() or writer.close()
+    processed_data = output.getvalue()
     
     st.subheader('Anomalies Detected')
     st.write(anomalies)
